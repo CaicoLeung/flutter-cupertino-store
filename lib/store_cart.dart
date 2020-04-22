@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -150,7 +151,7 @@ class _CupertinoStoreCartPage extends State<CupertinoStoreCartPage> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
-                          'Shipping'
+                          '运费: '
                           '${_currencyFormat.format(model.shippingCost)}',
                           style: Styles.productRowItemPrice,
                         ),
@@ -158,14 +159,14 @@ class _CupertinoStoreCartPage extends State<CupertinoStoreCartPage> {
                           height: 6,
                         ),
                         Text(
-                          'Tax ${_currencyFormat.format(model.tax)}',
+                          '税费: ${_currencyFormat.format(model.tax)}',
                           style: Styles.productRowItemPrice,
                         ),
                         const SizedBox(
                           height: 6,
                         ),
                         Text(
-                          'Total ${_currencyFormat.format(model.totalCost)}',
+                          '总价: ${_currencyFormat.format(model.totalCost)}',
                           style: Styles.productRowTotal,
                         )
                       ],
@@ -248,42 +249,45 @@ class ShoppingCartItem extends StatelessWidget {
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(product.assetName, package: product.assetPackage, width: 76, height: 76,),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                product.name,
-                                style: Styles.productRowItemName,
-                              ),
-                              Text(
-                                '${formatter.format(quantity * product.price)}',
-                                style: Styles.productRowItemName,
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '${quantity > 1 ? '$quantity x' : ''}'
-                                '${formatter.format(product.price)}',
-                            style: Styles.productRowItemPrice,
-                          )
-                        ],
+              child: Container(
+                decoration: BoxDecoration(border: Border(bottom: BorderSide())),
+                child: Row(
+                  children: <Widget>[
+                    Image.asset(product.assetName, package: product.assetPackage, width: 76, height: 76,),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  product.name,
+                                  style: Styles.productRowItemName,
+                                ),
+                                Text(
+                                  '${formatter.format(quantity * product.price)}',
+                                  style: Styles.productRowItemName,
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              '${quantity > 1 ? '$quantity x' : ''}'
+                                  '${formatter.format(product.price)}',
+                              style: Styles.productRowItemPrice,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               )
           ),
         ],
